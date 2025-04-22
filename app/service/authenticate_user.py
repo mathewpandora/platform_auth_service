@@ -1,9 +1,10 @@
 from .password import verify_password
 from app.db.models.user import User
-from sqlalchemy
+from app.db.database import AsyncSessionLocal
+from fastapi import HTTPException, status
 
 async def authenticate_user(
-        db: Session,
+        db: AsyncSessionLocal,
         email: str,
         password: str
 ) -> User:
