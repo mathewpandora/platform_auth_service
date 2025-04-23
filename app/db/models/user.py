@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from enum import Enum
 from app.db.database import Base
+from app.db.models.refresh_token import RefreshToken
 
 class UserRole(str, Enum):
     CURATOR = "curator"

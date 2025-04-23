@@ -1,8 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from app.db.database import Base, engine
-from app.db.models.user import User
-from app.db.models.refresh_token import RefreshToken
 from app.routers import auth
 
 

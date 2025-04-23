@@ -1,16 +1,20 @@
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 from .password import verify_password
 from app.db.models.user import User
-from app.db.database import AsyncSessionLocal
 from fastapi import HTTPException, status
 
 async def authenticate_user(
-        db: AsyncSessionLocal,
-        email: str,
-        password: str
+    db: AsyncSession,
+    email: str,
+    password: str
 ) -> User:
-
-    # Ищем пользователя в базе данных
-    user = db.query(User).filter(User.email == email).first()
+    """
+    Асинхронная аутентификация пользователя
+    """
+    # Асинхронный запрос к базе данных
+    result = await db.execute(select(User).where(User.email == email))
+    user = result.scalars().first()
 
     if not user:
         raise HTTPException(
